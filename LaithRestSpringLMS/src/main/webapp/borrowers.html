@@ -1,0 +1,66 @@
+<title>Borrower</title>
+ <head>
+<link rel="stylesheet" type="text/css" href="./resources/view.css">
+</head>
+<h2 align="center"> Welcome to Borrower Page</h2>
+<a href="#/home">Back</a><br/><br/>
+<div  ng-controller="borroCtrl">
+<form>
+<Label><font size=4>Borrower card Number </font></Label>&nbsp;
+<input type="text" ng-model="borrower.cardNo">&nbsp;&nbsp;
+<Label><font size=4>Borrower Name</font></Label>&nbsp;
+<input type="text" ng-model="borrower.borroName"><br/><br/>
+<Label><font size=4>Borrower Address </font></Label>&nbsp;
+ <input type="text" ng-model="borrower.borroAddress">&nbsp;&nbsp;
+<Label><font size=4>Borrower Phone</font></Label>&nbsp;
+&nbsp;&nbsp; <input type="text" ng-model="borrower.borroPhone"><br/>
+<button type="submit" class="btn btn-primary" ng-click="addBorrower()">Add Borrower</button><br/>
+</form>
+<h4>View Borrowers</h4>
+
+<div>
+<table  id="borrowersTable" class="table table-hover table-condensed"  border="1">
+<thead>
+	<tr>
+	<th>Card Number</th>
+	<th>Borrower Name</th>
+	<th>Borrower Address</th>
+	<th>Borrower Phone</th>
+	<th>Edit Borrower</th>
+	<th>Delete Borrower</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat= "borro in borrowers">
+			<td align="center">{{borro.cardNo}}</td>
+			<td align="center">{{borro.borroName}}</td>
+			<td align="center">{{borro.borroAddress}}</td>
+			<td align="center">{{borro.borroPhone}}</td>
+			<td align="center"><button type="button" class="btn btn-warning" ng-click="preEditBorrower(borro.cardNo, borro.borroName,borro.borroAddress,borro.borroPhone)">Edit</button></td>
+			 <td align="center"><a type="button" class="btn btn-sm btn-danger" onclick="deleteBorrower(<%=br.getCardNo() %>)">DELETE</a></td>
+			</tr>
+		
+	</tbody>
+</table>
+<div modal="boEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Author</h4>
+        </div>
+        <div class="editDiv" align= center>
+		 Name <input type="text" value={{borroName}} ng-model='borroName'><br/>
+		 Address <input type="text" value={{borroAddress}} ng-model='borroAddress'><br/>
+		 Phone <input type="text" value={{borroPhone}}} ng-model='borroPhone'><br/>
+		</div>
+		<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="editAuthor(authorName, authorId)">Save</button>
+		<button  class="btn btn-default" ng-click="closeBoEdit()">Cancel</button>
+		</div>
+		
+    </div>
+  </div>
+</div>
+</div>
+</div>

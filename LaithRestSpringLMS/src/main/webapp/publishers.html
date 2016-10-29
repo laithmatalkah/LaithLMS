@@ -1,0 +1,133 @@
+
+  <script>
+  
+  setTimeout(function() {
+	  $('#msg').fadeOut(3000);
+	 });
+ 
+</script>
+<script>
+function deletePublisher(aid) {
+    var answer = confirm("Are you sure you want to delete Publisher?");
+    if (answer == true) {
+        location.href = "delPublisher?publisherId=".concat(aid);
+    }
+}
+</script>
+<script>
+	function pagePublishers(val){
+		$.ajax({url: "pagePublishers",data: { pageNo: val},
+			})
+			  .done(function( data ) {
+			    $('#publishersTable').html(data);
+			  });
+	}
+	function searchAuthors(){
+		$.ajax({url: "searchString",data: {search : $('#searchString').val()},
+			})
+			  .done(function( data ) {
+			    $('#publishersTable').html(data);
+			  });
+	}
+</script>
+<title>Publishers</title>
+<style>
+body {
+    margin-left: 2cm;
+    margin-right: 2cm;
+}
+.table th {
+   text-align: center;   
+   background-color :#428bca;
+   color :white;
+}
+.message {
+   font-weight: bold;
+   color :green;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="./resources/view.css">
+</head>
+<h2 align="center"> Welcome to Publishers</h2>
+<a href="admin">Back</a><br/><br/>
+<div ng-controller="publisherCtrl">
+<h4> Add new publisher:-</h4>
+<form >
+<Label><font size=4> Publisher Name: </font></Label>&nbsp;
+<input type="text" ng-model="publisher.publisherName" required>&nbsp;&nbsp;
+<Label><font size=4> Publisher Address: </font></Label>&nbsp;
+<input type="text" ng-model="publisher.publisherAddress" required>&nbsp;&nbsp;
+<Label><font size=4>Publisher Phone: </font></Label>&nbsp;
+ <input type="text" ng-model="publisher.publisherPhone" required><br/><br/>
+<button type="submit"  class="btn btn-primary" ng-click="addPublisher()">Add Publisher</button>
+</form>
+<br/>
+<h4> View Publishers</h4>
+
+<div >
+<table id="publishersTable" class="table  table-hover table-condensed"  border="1">
+<thead>
+	<tr>
+	<th>Publisher Name</th>
+	<th>Publisher Address</th>
+	<th>Publisher Phone</th>
+	<th>Edit Publisher</th>
+	<th>Delete Publisher</th>
+	</tr>
+	</thead>
+	<tbody>
+	
+		<tr ng-repeat="p in publishers">
+			<td align="center">{{p.publisherName}}</td>
+			<td align="center">{{p.publisherAddress}}</td>
+			<td align="center">{{p.publisherPhone}}</td>
+			<td align="center"><button type="button" class="btn btn-warning" ng-click="preEditPublisher(p.publisherId, p.publisherName,p.publisherAddress,p.publisherPhone)">Edit</button></td>
+			<td align="center"><button type="button" class="btn btn-danger" ng-click="preDeletePublisher(p.publisherId,p.publisherName)">Delete</button></td>	
+			
+			</tr>
+	</tbody>
+</table>
+
+
+<div modal="pubEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Publisher</h4>
+        </div>
+        <div class="editDiv" align= center>
+		New publisher name <input type="text" value={{publisherName}} ng-model='publisherName' required><br/>
+		New publisher address <input type="text" value={{publisherAddress}} ng-model='publisherAddress' required><br/>
+		New publisher phone <input type="text" value={{publisherPhone}} ng-model='publisherPhone' required><br/>
+		
+		</div>
+		<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="editPublisher(publisherId,publisherName,publisherAddress,publisherPhone)">Save</button>
+		<button  class="btn btn-default" ng-click="closePubEdit()">Cancel</button>
+		</div>
+		
+    </div>
+  </div>
+</div>
+<div  modal="pubDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Publisher</h4>
+        </div >
+        <div class="delDiv">
+     <p>Are you sure you want to delete {{publisherName}}<p>
+     </div>
+     <div class="modal-footer">
+		<button  class="btn btn-primary" ng-click="deletePublisher(publisherId)">OK</button>
+		<button  class="btn btn-default" ng-click="closePubDelete()">Cancel</button>
+		</div>
+		
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

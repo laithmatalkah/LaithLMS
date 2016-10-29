@@ -1,0 +1,76 @@
+
+<title>Books</title>
+</head>
+<h2 align="center"> Welcome to Books Page</h2>
+<body ng-app="libraryApp">
+<a href="admin">Back</a><br/><br/>
+
+
+
+<form action="addBooks" method="post">
+<h4>Enter Book Title:</h4> <input type="text" name="bookTitle">
+<button type="submit" name="btn" value="addBook" class="btn btn-primary">Add Book</button><br/>
+<h4> Select authors :-</h4>
+<div ng-controller="authorCtrl">
+<select  multiple="multiple"  class="form-control"  >
+		<option  ng-repeat="a in authors">{{a.authorName}}</option>
+</select >
+</div>
+<h4> Select publisher :-</h4>
+<div ng-controller="publisherCtrl">
+<select  name="selectPublisher" class="form-control" >
+<option ng-repeat="p in publishers">{{p.publisherName}}</option>
+</select>
+</div>
+
+<h4> Select genre :-</h4>
+<div ng-controller="genreCtrl">
+<select name="selectGenre" multiple class="form-control">
+		<option ng-repeat="g in genres">{{g.genreName}}</option>
+</select>
+</div>
+</form>
+
+<h4>View Books</h4>
+<nav>
+  <ul class="pagination">
+    <li><a id="pageNo" onclick='pageBooks(<%=i%>)'>1</a></li>
+  </ul>
+</nav>
+<div ng-controller="bookCtrl">
+<table class="table" id="booksTable">
+<thead>
+	<tr>
+	<th>Title</th>
+	<th>Author</th>
+	<th>Publisher</th>
+	<th>Genre</th>
+	<th>Edit Book</th>
+	<th>Delete Book</th>
+	</tr>
+	</thead>
+	<tbody>
+				<tr ng-repeat="b in books">
+			
+					<td>{{b.title}}</td> 
+					<td ><span ng-repeat="a in b.authors">{{a.authorName}},</span></td>
+					<td >{{b.publisher.publisherName}}</td>
+					<td ><span ng-repeat="g in b.genres">{{g.genreName}},</span></td>
+					<td align="center"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#AuModal" 
+			href='editauthor?authorId=<%=a.getAuthorId()%>'>EDIT</button></td>
+			 <td align="center"><a type="button" class="btn btn-sm btn-danger" onclick="deleteAuthor(<%=a.getAuthorId()%>)">DELETE</a></td>
+					
+			</tr>
+	</tbody>
+</table>
+</div>
+
+<div id="bookModal" class="modal fade" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+
+   
+<title>Books</title>
+<style>
+body {
+    margin-left: 2cm;
+    margin-right: 2cm;
+}
+.table th {
+   text-align: center;   
+   background-color :#428bca;
+   color :white;
+}
+.message {
+   font-weight: bold;
+   color :green;
+}
+</style>
+</head>
+<h2 align="center"> Welcome to Books Page</h2>
+<body>
+<a href="admin">Back</a><br/><br/>
+<p id="msg" class="message">${message} </p>
+<form action="addBooks" method="post">
+<h4>Enter Book Title:</h4> <input type="text" name="bookTitle">
+<button type="submit" name="btn" value="addBook" class="btn btn-primary">Add Book</button><br/>
+<h4> Select authors :-</h4>
+<select multiple name="selectAuthors" class="form-control">
+<%for(Author a: authors){ %>
+		<option value=<%=a.getAuthorId() %>><%=a.getAuthorName() %></option>
+	<%} %>
+</select >
+<h4> Select publisher :-</h4>
+<select  name="selectPublisher" class="form-control">
+
+<%for(Publisher p: publishers){ %>
+		<option value=<%=p.getPublisherId()%>><%=p.getPublisherName()%></option>
+	<%} %>
+</select>
+<h4> Select genre :-</h4>
+<select name="selectGenre" multiple class="form-control">
+<%for(Genre g: genres){ %>
+		<option value=<%=g.getGenreId()%>><%=g.getGenreName()%></option>
+	<%} %>
+</select>
+</form>
+
+<h4>View Books</h4>
+<nav>
+  <ul class="pagination">
+    <%for(int i=1; i<=pageCount;i++){ %>
+    <li><a id="pageNo" onclick='pageBooks(<%=i%>)'><%=i%></a></li>
+	<%} %>
+  </ul>
+</nav>
+<table class="table" id="booksTable">
+<thead>
+	<tr>
+	<th>Title</th>
+	<th>Author</th>
+	<th>Publisher</th>
+	<th>Genre</th>
+	<th>Edit Book</th>
+	<th>Delete Book</th>
+	</tr>
+	</thead>
+	<tbody>
+	<%
+					for (Book b : books) {
+						b.setGenres(service.getBookGenres(b));
+						b.setAuthors(service.getBookAuthors(b));
+						authors=b.getAuthors();
+						genres=b.getGenres();
+					publisher =b.getPublisher().getPublisherName();
+					String genreList = "";
+					String authorList = "";
+					if (genres != null) {
+						for (Genre g : genres) {
+							genreList += g.getGenreName() + " , ";
+						}
+					}
+					
+					if (authors != null) {
+						for (Author a : authors) {
+							authorList += a.getAuthorName() + " , ";
+						}
+					}
+			%>
+				<tr>
+			
+					<td align="center"><%=b.getTitle()  %></td> 
+					<td ><%=authorList %></td> 
+					<td align="center"><%=publisher %></td> 
+					<td ><%=genreList %></td> 
+					<td align="center"><button   type="button" class="btn btn-warning" data-toggle="modal" data-target="#bookModal" 
+			href='editbook?bookId=<%=b.getBookId() %>'>EDIT</button></td>
+			 <td align="center"><a type="button" class="btn btn-sm btn-danger"
+				onclick="deleteBook(<%=b.getBookId() %>)">DELETE</a></td>
+					
+			</tr>
+			
+			<%} %>
+	</tbody>
+</table>
+<div id="bookModal" class="modal fade" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+</body>
+</html>

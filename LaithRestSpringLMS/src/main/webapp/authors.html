@@ -1,0 +1,84 @@
+
+
+<title>Authors</title>
+<link rel="stylesheet" type="text/css" href="./resources/view.css">
+</head>
+<h2 align="center"> Welcome to Authors Page</h2>
+
+<body ng-app="libraryApp">
+<a href="admin">Back</a><br/><br/>
+<div ng-controller="authorCtrl" >
+<form >
+<h4>Enter Author Name:</h4>
+ <input type="text" ng-model="author.authorName" required>
+<button type="submit" class="btn btn-primary" ng-click="addAuthor()">Add Author</button><br/>
+<div  class="alert alert-success">
+  <strong>{{create}}</strong> 
+</div>
+</form>
+
+<h4>View Authors</h4>
+<nav>
+  <ul class="pagination">
+    
+    <li><a id="pageNo" onclick='pageAuthors(<%=i%>)'></a></li>
+	
+  </ul>
+</nav>
+<table class="table table-hover table-condensed"  border="1" id="authorsTable">
+			<thead>
+				<tr>
+					<th>Author Name</th>
+					<th>Edit Author</th>
+					<th>Delete Author</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<tr ng-repeat="a in authors">
+				
+					<td>{{a.authorName}}</td>
+			
+			<td align="center"><button type="button" class="btn btn-warning" ng-click="preEditAuthor(a.authorName, a.authorId)">Edit</button></td>
+			<td align="center"><button type="button" class="btn btn-danger" ng-click="preDeleteAuthor(a.authorName, a.authorId)">Delete</button></td>			
+			</tr>
+			</tbody>
+		</table>
+		
+		
+<div modal="auEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Author</h4>
+        </div>
+        <div class="editDiv" align= center>
+		New Author Name <input type="text" value={{authorName}} ng-model='authorName'><br/>
+		</div>
+		<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="editAuthor(authorName, authorId)">Save</button>
+		<button  class="btn btn-default" ng-click="closeAuEdit()">Cancel</button>
+		</div>
+		
+    </div>
+  </div>
+</div>
+<div  modal="auDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Author</h4>
+        </div>
+     <h3 align="center"> Are you sure you want to delete {{authorName}} </h3>
+     <div class="modal-footer">
+		<button  class="btn btn-primary" ng-click="deleteAuthor(authorName, authorId)">OK</button>
+		<button  class="btn btn-default" ng-click="closeAuDelete()">Cancel</button>
+		</div>
+		
+    </div>
+  </div>
+</div>
+</div>
+</body>

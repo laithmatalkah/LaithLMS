@@ -1,0 +1,36 @@
+<div ng-controller="authorCtrl">
+<nav>
+  <ul class="pagination">
+    <li><a id="pageNo" onclick="pageAuthors(1)">1</a></li>
+  </ul>
+</nav>
+<form action="searchAuthor" method="post">
+		<input type="text" name="searchString" id="searchString" placeholder="Enter Authorname" onkeypress="searchAuthors()"/>
+	</form>
+<h3>List of Authors</h3>
+
+<div class="row">
+	<div class="col-md-6">
+		<table class="table" id="authorsTable">
+			<thead>
+				<tr>
+					<th>Author ID</th>
+					<th>Author Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="a in authors">
+					<td >{{a.authorId}}</td>
+					<td >{{a.authorName}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+</div>
+<div id="myModal1" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content"></div>
+	</div>
+</div>
+</div>

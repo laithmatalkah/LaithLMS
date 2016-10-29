@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+body {
+    margin-left: 2cm;
+    margin-right: 2cm;
+}
+.editDiv {
+	padding: 25px;
+	 font-size: 17px;
+	 margin:10px 10px 10px 10px;
+}
+
+.delDiv {
+	padding: 15px;
+	 font-size: 17px;
+	
+}
+.table th {
+   text-align: center;   
+   background-color :#428bca;
+   color :white;
+}
+
+.table td {
+   width :auto;
+}

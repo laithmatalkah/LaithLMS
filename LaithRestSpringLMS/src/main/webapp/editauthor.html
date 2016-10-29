@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<h3 align="center">Edit Author details</h3>
+<br/>
+<style>
+form {
+    margin-left: 1cm;
+    margin-right: 1cm;
+    margin-bottom: 1cm;
+}
+</style>
+	<form action="authorEdited" method="post">
+		<Label><font size=4> Update Author Name : </font></Label>&nbsp; <input type="text" name="authorName"
+			value='<%=author.getAuthorName()%>'> 
+			<input type="hidden" name="authorId" value="">
+		<button type="submit" name="btn" value="authorEdited" class="btn btn-primary">Save</button>
+		<button  data-dismiss="modal" class="btn btn-default">Cancel</button>
+	</form>
+<script>
+function a(){
+	
+	alert("1");
+	
+}
+
+a();
+function a(){
+	
+	alert("2");
+	
+}
+</script>
